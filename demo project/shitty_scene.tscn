@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://d27607wilp7uy"]
+
+[ext_resource type="Shader" uid="uid://dsveqblvdpylc" path="res://triplanar_blood_shader.gdshader" id="1_gdnu4"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vbp05"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_2mm5k"]
+sky_material = SubResource("ProceduralSkyMaterial_vbp05")
+
+[sub_resource type="Environment" id="Environment_qq21b"]
+background_mode = 2
+sky = SubResource("Sky_2mm5k")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vbp05"]
+noise_type = 3
+fractal_octaves = 10
+fractal_lacunarity = 5.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2mm5k"]
+noise = SubResource("FastNoiseLite_vbp05")
+seamless = true
+normalize = false
+seamless_blend_skirt = 0.479
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qq21b"]
+render_priority = 0
+shader = ExtResource("1_gdnu4")
+shader_parameter/noise = SubResource("NoiseTexture2D_2mm5k")
+shader_parameter/noise_scale = 2.0
+shader_parameter/noise_shading = 1.0
+shader_parameter/intensity = 0.5050000239875
+shader_parameter/color = Color(0.87038714, 1.4439225e-06, 1.2513996e-06, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8lsop"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gdnu4"]
+
+[sub_resource type="TextMesh" id="TextMesh_vbp05"]
+text = "hi!"
+font_size = 127
+
+[sub_resource type="TorusMesh" id="TorusMesh_2mm5k"]
+
+[node name="shitty_scene" type="Node3D" unique_id=1373642610]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=530307906]
+environment = SubResource("Environment_qq21b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=777580648]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1030321987]
+transform = Transform3D(1, 0, 0, 0, 0.9810331, 0.19384056, 0, -0.19384056, 0.9810331, 1.0466279, 1.0389959, 2.5017686)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1161967777]
+transform = Transform3D(0.8436661, -0.1486093, -0.5158906, 0.17347634, 0.9848381, 0, 0.5080686, -0.089494795, 0.8566545, -3.430103, 0, -2.6277552)
+material_overlay = SubResource("ShaderMaterial_qq21b")
+mesh = SubResource("CapsuleMesh_8lsop")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=709022423]
+transform = Transform3D(0.66140926, -0.23206443, 0.7132207, -0.19258687, 0.8664981, 0.46053368, -0.724878, -0.44195825, 0.52841747, -0.54429555, 0, -2.6277552)
+material_overlay = SubResource("ShaderMaterial_qq21b")
+mesh = SubResource("CylinderMesh_gdnu4")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="." unique_id=869740255]
+transform = Transform3D(0.97835034, 0.1227241, -0.16664152, 0, 0.8052044, 0.5929974, 0.20695555, -0.5801592, 0.787772, 2.2390878, 0, -2.6277552)
+material_overlay = SubResource("ShaderMaterial_qq21b")
+mesh = SubResource("TextMesh_vbp05")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="." unique_id=602525354]
+transform = Transform3D(0.48999116, -0.8706466, 0.043398872, 0.32126448, 0.13407564, -0.9374503, 0.8103692, 0.47328484, 0.3454037, 5.18139, 0, -2.6277552)
+material_overlay = SubResource("ShaderMaterial_qq21b")
+mesh = SubResource("TorusMesh_2mm5k")
